@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>orders list</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px
+        }
+
+        ul {
+            list-style-type: none;
+
+        }
+
+        li {
+            float: left;
+            margin-left: 3%;
+            margin-top: 0.7%;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+
+        }
+
+        a:hover {
+            color: red
+        }
+
+        .contain {
+            background-color: white;
+            width: 100%;
+            height: 50px;
+        }
+
+        .order {
+            padding-top: 5%;
+            width: 70%;
+            background-color: black;
+            opacity: 0.9;
+            margin: auto;
+            padding-left: 6%;
+            padding-right: 6%;
+
+        }
+
+
+
+        .order_details {
+            width: 22%;
+            height: 100%;
+            border: 1px solid red;
+            margin-bottom: 3%;
+            margin-left: 4%;
+
+            padding: 2%;
+            background-color: azure;
+            float: left;
+        }
+
+        body {
+            background-image: url('/img/4.jpg');
+            background-size: cover;
+        }
+
+        .date-as-calendar {
+            float: left;
+            font-variant: normal;
+            font-style: normal;
+            font-weight: normal;
+            font-family: Arial;
+            vertical-align: top;
+            color: #303030;
+            background: #E0E0E0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0px 2px 2px -2px black;
+        }
+
+        .date-as-calendar .weekday,
+        .date-as-calendar .day,
+        .date-as-calendar .month,
+        .date-as-calendar .year,
+        .date-as-calendar .time {
+            text-align: center;
+            line-height: 1.0;
+        }
+
+        .date-as-calendar .month {
+            font-family: Arial;
+            text-transform: uppercase;
+            background: #F03020;
+            color: #F0F0F0;
+        }
+
+        .position-pixels.date-as-calendar {
+            display: inline-block;
+            position: relative;
+            width: 70px;
+            height: 64px;
+        }
+
+        .position-pixels.date-as-calendar .weekday,
+        .position-pixels.date-as-calendar .day,
+        .position-pixels.date-as-calendar .month,
+        .position-pixels.date-as-calendar .year,
+        .position-pixels.date-as-calendar .time {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 1em;
+        }
+
+        .position-pixels.date-as-calendar .month {
+            top: 0px;
+            font-size: 10px;
+            padding: 2px 0;
+        }
+
+        .position-pixels.date-as-calendar .weekday {
+            top: 16px;
+            font-size: 10px;
+        }
+
+        .position-pixels.date-as-calendar .day {
+            top: 26px;
+            font-size: 24px;
+        }
+
+        .position-pixels.date-as-calendar .year {
+            top: 50px;
+            font-size: 14px;
+        }
+
+        .time {
+            float: left;
+            padding: 3px;
+            width: 50px;
+            height: 28px;
+            margin-top: 15px;
+            margin-left: -3px;
+            font-variant: normal;
+            font-style: normal;
+            font-weight: normal;
+            font-family: Arial;
+            vertical-align: top;
+            font-size: 12px;
+            text-align: center;
+            background: #C0C0C0;
+            border: 1px solid #ccc;
+            border-top-right-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0px 2px 2px -2px black;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="background">
+        <div class="contain">
+            <ul>
+                <li><a href="/login/home">Resturant Application</a></li>
+                <li><a href="/login/meal/add">Add Meal</a></li>
+                <li><a href="/login/order/list">List Orders</a></li>
+
+            </ul>
+        </div>
+
+        <div class="order">
+
+            <% orders_data.forEach(function(order,i){ %>
+            <% var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+              ]; %>
+            <a href="/login/order/details/<%= order._id %>" style="color:red">
+                <div class="order_details">
+                    <h2 style="margin-right: 2%;"> order<%= i+1 %> </h2>
+                    <div class="date-as-calendar position-pixels">
+                        <span class="day"><%= order.time.getDate() %></span>
+                        <span class="month"><%= monthNames[ order.time.getMonth() ]%></span>
+                        <span class="year"> <%= order.time.getFullYear() %>
+                        </span>
+                    </div>
+                    <div class="time">
+                        <%= order.time.getHours() %>:<%= order.time.getMinutes() %>:<%= order.time.getSeconds() %>
+                    </div>
+                </div>
+            </a>
+
+            <% })%>
+
+            <div style="clear: both;"></div>
+        </div>
+
+</body>
+
+</html>

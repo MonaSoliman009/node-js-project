@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>order details</title>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    body {
+      background-image: url('/img/4.jpg');
+      background-size: 100% 100%;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      float: left;
+      margin-left: 3%;
+      margin-top: 0.7%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 24px;
+    }
+
+    a:hover {
+      color: red;
+    }
+
+    .contain {
+      background-color: white;
+      width: 100%;
+      height: 50px;
+    }
+
+    .order {
+      padding-top: 5%;
+      width: 70%;
+      /* height: 520px; */
+      background-color: black;
+      opacity: 0.9;
+      margin: auto;
+      padding-left: 6%;
+      padding-right: 6%;
+    }
+
+    .orderdetail {
+      padding: 3px;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .meal {
+      width: 40%;
+      float: left;
+      border: 1px solid #4b3d4d;
+      background-color: aliceblue;
+      margin-bottom: 6%;
+      margin-left: 5%;
+      margin-top: 4%;
+      text-align: center;
+      font-size: 25px;
+      padding: 5px;
+    }
+
+    .note {
+      width: 40%;
+      margin: auto;
+      border: 2px solid white;
+      margin-bottom: 3%;
+    }
+
+    .time {
+      width: 40%;
+      margin: auto;
+      border: 2px solid white;
+      margin-bottom: 3%;
+
+    }
+
+    .totalprice {
+      width: 40%;
+      margin: auto;
+      border: 2px solid white;
+      margin-bottom: 3%;
+      text-align: center;
+      color: red;
+      font-size: 40px;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+
+    <div class="contain">
+      <ul>
+        <li><a href="/login/home">Resturant Application</a></li>
+        <li><a href="/login/meal/add">Add Meal</a></li>
+        <li><a href="/login/order/list">List Orders</a></li>
+      </ul>
+    </div>
+    <div class="order">
+      <div class="orderdetail">
+        <div class="time">
+          <h2 style="text-align: center;color:red;font-size: 50px;">
+            Time
+          </h2>
+          <h4 style="color:white;font-size: 20px;margin-bottom: 4%;margin-left: 35%;">
+            <%= order_details.time.getHours() %>:<%= order_details.time.getMinutes() %>:<%= order_details.time.getSeconds() %>
+          </h4>
+        </div>
+        <h2 style="text-align: center;color:red;font-size: 50px;">
+          Meals
+        </h2>
+        <% var priceSum = 0;  %>
+
+        <% order_details.meals.forEach(function(meal){ %>
+        <% priceSum += meal.price %>
+
+        <div class="meal">
+          <img src="<%= meal.img %>" />
+          <h4><%= meal.name %></h4>
+          <br />
+          <h6>"<%= meal.description %>"</h6>
+          <h6><span style="color:red">price:</span><%= meal.price %></h6>
+        </div>
+
+        <% })%>
+        <div style="clear:both"></div>
+
+
+        <div class="note">
+          <h5 style="text-align: center;color:red;font-size: 50px;">
+            Note
+          </h5>
+          <h4 style="text-align: center;color:white;font-size: 20px;"><%= order_details.note %></h4>
+        </div>
+        <div class="totalprice">
+          <h5>
+            Total price
+          </h5>
+          <h4 style="color:white;font-size: 30px;margin-bottom: 4%; text-align: center"> <%= priceSum %> </h4>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>resturant system</title>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    body {
+      background-image: url("../img/4.jpg");
+      background-size: 100% 100%;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      float: left;
+      margin-left: 3%;
+      margin-top: 0.7%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 24px;
+    }
+
+    a:hover {
+      color: red;
+    }
+
+    .contain {
+      background-color: white;
+      width: 100%;
+      height: 50px;
+    }
+
+    .order {
+      padding-top: 5%;
+      padding-bottom: 5%;
+
+      width: 70%;
+      background-color: black;
+      opacity: 0.9;
+      margin: auto;
+    }
+
+    .inp1 {
+      padding: 10px;
+      border-style: none;
+      display: block;
+      margin-left: 43%;
+      margin-top: 3%;
+      background-color: red;
+      color: white;
+      font-size: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+    }
+
+    textarea {
+      margin-top: 3%;
+
+      margin-left: 28%;
+
+    }
+
+    .sub1 {
+      width: 100%;
+      height: 100%;
+      font-size: 25px;
+      color: beige;
+    }
+
+    .details {
+      width: 25%;
+      float: left;
+      margin-bottom: 4%;
+      margin-right: 2%;
+      background-color: black;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      float: left;
+
+    }
+
+    label {
+      margin-left: 10%;
+    }
+
+    .details {
+      margin-left: 4%
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+    <div class="contain">
+      <ul>
+        <li><a href="home">Resturant Application</a></li>
+        <li><a href="meal/add">Add Meal</a></li>
+        <li><a href="order/list">List Orders</a></li>
+      </ul>
+    </div>
+    <form method="POST" action="/login/order/list" id="sectionForm">
+
+      <div class="order">
+        <div class="sub1">
+          <% meals_data.forEach(function(meal){ %>
+          <div class="details">
+            <img src="<%= meal.img %>" />
+            <label class="container"><%= meal.name %> </label>
+            <input type="checkbox" name="mealsid" value="<%= meal._id %>" />
+          </div>
+          <% })%>
+          <div style="clear: both"></div>
+        </div>
+
+        <div class="fixed">
+          <textarea rows="5" cols="60" name="note" placeholder="write a note"></textarea>
+          <input class="inp1" type="submit" placeholder="check out" value="check out " />
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <script>
+    (function () {
+      const form = document.querySelector("#sectionForm");
+      const checkboxes = form.querySelectorAll("input[type=checkbox]");
+      const checkboxLength = checkboxes.length;
+      const firstCheckbox = checkboxLength > 0 ? checkboxes[0] : null;
+
+      function init() {
+        if (firstCheckbox) {
+          for (let i = 0; i < checkboxLength; i++) {
+            checkboxes[i].addEventListener("change", checkValidity);
+          }
+
+          checkValidity();
+        }
+      }
+
+      function isChecked() {
+        for (let i = 0; i < checkboxLength; i++) {
+          if (checkboxes[i].checked) return true;
+        }
+
+        return false;
+      }
+
+      function checkValidity() {
+        const errorMessage = !isChecked() ?
+          "At least one checkbox must be selected." :
+          "";
+        firstCheckbox.setCustomValidity(errorMessage);
+      }
+
+      init();
+    })();
+  </script>
+</body>
+
+</html>
